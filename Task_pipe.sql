@@ -1,10 +1,16 @@
+-- ============================================
+-- SET THESE VARIABLES FROM YOUR .env FILE
+-- ============================================
+SET s3_bucket_url = 's3://deva-s-snowflake-bucket/snowflake-folder/';        -- .env: S3_BUCKET_URL
+SET sf_username = 'thisisadhav';                                             -- .env: SNOWFLAKE_USERNAME
+
 create or replace database S3_db;
 
 create or replace table S3_table(files string);
 
 use schema S3_db.public;
 create or replace stage S3_stage
-  url = ('s3://deva-s-snowflake-bucket/snowflake-folder/')
+  url = ($s3_bucket_url)
   storage_integration = S3_role_integration;
 
 create or replace pipe S3_db.public.S3_pipe auto_ingest=true as
@@ -27,7 +33,7 @@ grant usage on stage S3_db.public.S3_stage to role S3_role;
 grant ownership on pipe S3_db.public.S3_pipe to role S3_role;
 
 -- Grant S3_role and Set as Default
-grant role S3_role to user thisisadhav;
-alter user thisisadhav set default_role = S3_role;
+grant role S3_role to user identifier($sf_username);
+alter user identifier($sf_username) set default_role = S3_role;
 
 show pipes;
