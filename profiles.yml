@@ -1,0 +1,10 @@
+first_dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      role: ACCOUNTADMIN
+      warehouse: COMPUTE_WH
+      database: DEMO_DB
+      schema: DEMO_SCHEMA
+      threads: 8

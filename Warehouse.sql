@@ -1,0 +1,38 @@
+SHOW WAREHOUSES ;
+
+-- Suspend (stop) the warehouse
+ALTER WAREHOUSE COMPUTE_WH SUSPEND;
+
+-- Resume (start) the warehouse
+ALTER WAREHOUSE COMPUTE_WH RESUME;
+
+-- Disable auto-resume
+ALTER WAREHOUSE COMPUTE_WH SET AUTO_RESUME = TRUE;
+
+-- Enable auto-resume
+ALTER WAREHOUSE SYSTEM$STREAMLIT_NOTEBOOK_WH SET AUTO_RESUME = FALSE;
+
+-- Set auto-suspend timeout (in seconds)
+ALTER WAREHOUSE COMPUTE_WH SET AUTO_SUSPEND = 60;
+
+-- Check warehouse status
+SHOW WAREHOUSES LIKE 'COMPUTE_WH';
+
+-- Resize the warehouse
+ALTER WAREHOUSE COMPUTE_WH SET WAREHOUSE_SIZE = 'SMALL';
+
+-- Drop the warehouse
+DROP WAREHOUSE COMPUTE_WH;
+
+-- Create a new warehouse
+CREATE WAREHOUSE MY_WH
+  WAREHOUSE_SIZE = 'XSMALL'
+  AUTO_SUSPEND = 300
+  AUTO_RESUME = TRUE;
+
+  select * from demo_db.demo_schema.customer_details where customer_id=91;
+
+SELECT * FROM DEMO_DB.DEMO_SCHEMA.CUSTOMER_DETAILS;
+
+CREATE OR REPLACE DBT PROJECT First_DBT_project
+  FROM 'snow://workspace/USER$.PUBLIC.DEFAULT$/versions/live';DEMO_DB.DEMO_SCHEMA.FIRST_DBT_PROJECTDEMO_DB.DEMO_SCHEMA.FIRST_DBT_PROJECTDEMO_DB.DEMO_SCHEMA.CUSTOMER_DETAILS
